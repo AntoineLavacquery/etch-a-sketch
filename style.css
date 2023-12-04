@@ -22,5 +22,9 @@ body {
 .cell {
     background-color: whitesmoke;
     flex: 1;
-    /* border: 1px solid black; */
+    border: 1px solid lightgray;
+}
+
+.button.clear {
+    background-color: rgb(255, 255, 255);
 }

@@ -8,12 +8,19 @@ createGrid(gridSize);
 
 let tempo = document.querySelector(".tempo");
 
+
+let clearButton = document.querySelector(".clear");
+clearButton.addEventListener("click", function () {
+    createGrid(gridSize);
+});
+
+
 let slider = document.querySelector("#size-slider");
 slider.addEventListener("input", function() {
     gridSize = this.value;
     tempo.innerHTML = gridSize;
     createGrid(gridSize);
-})
+});
 
 function createGrid(gridSize) {
     while (grid.firstChild) {
@@ -37,5 +44,4 @@ function createGrid(gridSize) {
         }
         grid.appendChild(line);
     }
-
 }
