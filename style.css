@@ -2,6 +2,10 @@
     --grid-frame-size: 600px;
 }
 
+body {
+    background-color: antiquewhite;
+}
+
 .grid {
     margin: auto;
     width: var(--grid-frame-size);
@@ -16,6 +20,7 @@
 }
 
 .cell {
+    background-color: whitesmoke;
     flex: 1;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
