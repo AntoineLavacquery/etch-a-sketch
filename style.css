@@ -1,5 +1,21 @@
+:root {
+    --grid-frame-size: 600px;
+}
+
+.grid {
+    margin: auto;
+    width: var(--grid-frame-size);
+    height: var(--grid-frame-size);
+    display: flex;
+    flex-direction: column;
+}
+
+.line {
+    display: flex;
+    flex: 1;
+}
+
 .cell {
-    width: 30px;
-    height: 30px;
+    flex: 1;
     border: 1px solid black;
 }
