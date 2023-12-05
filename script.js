@@ -1,18 +1,30 @@
+// Listener of mouse
 let mouseDown = false;
 window.addEventListener("mousedown", () => {mouseDown = true;})
 window.addEventListener("mouseup", () => {mouseDown = false;})
 
+let rainbow = false;
+let rainbowButton = document.querySelector(".rainbow");
+rainbowButton.addEventListener("click", function() {
+    if (rainbow) {
+        rainbow = false;
+    }
+    else {
+        rainbow = true;
+    }
+})
+
+let tempo = document.querySelector(".tempo");
 let grid = document.querySelector(".grid");
 let gridSize = 16;
 createGrid(gridSize);
-
-let tempo = document.querySelector(".tempo");
 
 let colorPicker = document.querySelector(".color-picker");
 colorPicker.addEventListener("input", function(event) {
     color = event.target.value;
     console.log(color);
 });
+
 let color = colorPicker.value;
 
 let clearButton = document.querySelector(".clear");
@@ -27,6 +39,7 @@ slider.addEventListener("input", function() {
     createGrid(gridSize);
 });
 
+
 function createGrid(gridSize) {
     while (grid.firstChild) {
         grid.removeChild(grid.firstChild);
@@ -39,7 +52,12 @@ function createGrid(gridSize) {
             cell.className = "cell";
             cell.addEventListener("mouseenter", function() {
                 if (mouseDown) {
-                    this.style.backgroundColor = color;
+                    if (rainbow) {
+                        this.style.backgroundColor = createRandomColor();
+                    }
+                    else {
+                        this.style.backgroundColor = color;
+                    }
                 }
             })
             cell.addEventListener("mousedown", function() {
@@ -50,3 +68,8 @@ function createGrid(gridSize) {
         grid.appendChild(line);
     }
 }
+
+function createRandomColor() {
+    return `#${Math.floor(Math.random()*16777215).toString(16)}`;
+}
+
