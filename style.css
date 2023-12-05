@@ -1,5 +1,7 @@
 :root {
     --grid-frame-size: 600px;
+    --idle-btn-color: #eeeeee;
+    --pushed-btn-color: #aaaaaa;
 }
 
 body {
@@ -27,4 +29,20 @@ body {
 
 .button.clear {
     background-color: rgb(255, 255, 255);
+}
+
+.button.toggle {
+    display: inline-block;
+    width: 80px;
+    height: 30px;
+    border: 0;
+    border-radius: 6px;
+    background-color: var(--idle-btn-color);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0px;
+    padding: 0px;
+    flex-wrap: nowrap;
 }
