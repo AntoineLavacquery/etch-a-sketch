@@ -87,3 +87,15 @@ function createRandomColor() {
     return `#${Math.floor(Math.random()*16777215).toString(16)}`;
 }
 
+function darkenColor(hexValue) {
+    hexValue = hexValue.replace('#', '');
+    let hexArray = hexValue.match(/.{1,2}/g);
+    for (let i = 0; i < hexArray.length; i++) {
+        hexNum = parseInt(hexArray[i], 16);
+        hexNum = Math.floor(hexNum * 1.1);
+        hexArray[i] = hexNum.toString(16);
+    }
+    return (`#${hexArray.join("")}`);
+};
+
+console.log(darkenColor("#3a55f1"));
