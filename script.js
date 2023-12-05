@@ -25,6 +25,17 @@ eraserButton.addEventListener("click", function() {
     }
 })
 
+let darken = false;
+let darkenButton = document.querySelector(".darken");
+darkenButton.addEventListener("click", function() {
+    if (darken) {
+        darken = false;
+    }
+    else {
+        darken = true;
+    }
+})
+
 let tempo = document.querySelector(".tempo");
 let grid = document.querySelector(".grid");
 let gridSize = 16;
@@ -50,6 +61,23 @@ slider.addEventListener("input", function() {
     createGrid(gridSize);
 });
 
+function changeColor(event) {
+
+    if (mouseDown || event.type === "mousedown") {
+        if (eraser) {
+            this.style.backgroundColor = "rgb(255, 255, 255)";
+        }
+        else if (darken) {
+            this.style.backgroundColor = darkenColor(this.style.backgroundColor);
+        }
+        else if (rainbow) {
+            this.style.backgroundColor = createRandomColor();
+        }
+        else {
+            this.style.backgroundColor = color;
+        }
+    }
+}
 
 function createGrid(gridSize) {
     while (grid.firstChild) {
@@ -61,22 +89,31 @@ function createGrid(gridSize) {
         for (let j = 0; j < gridSize; j++) {
             let cell = document.createElement("div");
             cell.className = "cell";
-            cell.addEventListener("mouseenter", function() {
-                if (mouseDown) {
-                    if (eraser) {
-                        this.style.backgroundColor = "#ffffff";
-                    }
-                    else if (rainbow) {
-                        this.style.backgroundColor = createRandomColor();
-                    }
-                    else {
-                        this.style.backgroundColor = color;
-                    }
-                }
-            })
-            cell.addEventListener("mousedown", function() {
-                this.style.backgroundColor = color;
-            })
+            cell.style.backgroundColor = "rgb(255, 255, 255)";
+            cell.addEventListener("mousedown", changeColor);
+            cell.addEventListener("mouseenter", changeColor);
+            
+
+            // cell.addEventListener("mouseenter", function() {
+            //     if (mouseDown) {
+            //         if (eraser) {
+            //             this.style.backgroundColor = "#ffffff";
+            //         }
+            //         else if (darken) {
+            //             console.log(this.style.backgroundColor);
+            //             this.style.backgroundColor = darkenColor(this.style.backgroundColor);
+            //         }
+            //         else if (rainbow) {
+            //             this.style.backgroundColor = createRandomColor();
+            //         }
+            //         else {
+            //             this.style.backgroundColor = color;
+            //         }
+            //     }
+            // })
+            // cell.addEventListener("mousedown", function() {
+            //     this.style.backgroundColor = color;
+            // })
             line.appendChild(cell);
         }
         grid.appendChild(line);
@@ -87,15 +124,12 @@ function createRandomColor() {
     return `#${Math.floor(Math.random()*16777215).toString(16)}`;
 }
 
-function darkenColor(hexValue) {
-    hexValue = hexValue.replace('#', '');
-    let hexArray = hexValue.match(/.{1,2}/g);
-    for (let i = 0; i < hexArray.length; i++) {
-        hexNum = parseInt(hexArray[i], 16);
-        hexNum = Math.floor(hexNum * 1.1);
-        hexArray[i] = hexNum.toString(16);
+function darkenColor(rgbValue) {
+    let rgbArray = rgbValue.match(/\d+/g).map(Number);
+    for (let i = 0; i < rgbArray.length; i++) {
+        rgbArray[i] = Math.floor(rgbArray[i] * 0.9);
     }
-    return (`#${hexArray.join("")}`);
+    return (`rgb(${rgbArray.join(", ")})`);
 };
 
-console.log(darkenColor("#3a55f1"));
+console.log(darkenColor("rgb(100, 100, 100)"));
