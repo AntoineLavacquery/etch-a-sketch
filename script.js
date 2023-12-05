@@ -14,6 +14,17 @@ rainbowButton.addEventListener("click", function() {
     }
 })
 
+let eraser = false;
+let eraserButton = document.querySelector(".eraser");
+eraserButton.addEventListener("click", function() {
+    if (eraser) {
+        eraser = false;
+    }
+    else {
+        eraser = true;
+    }
+})
+
 let tempo = document.querySelector(".tempo");
 let grid = document.querySelector(".grid");
 let gridSize = 16;
@@ -52,7 +63,10 @@ function createGrid(gridSize) {
             cell.className = "cell";
             cell.addEventListener("mouseenter", function() {
                 if (mouseDown) {
-                    if (rainbow) {
+                    if (eraser) {
+                        this.style.backgroundColor = "#ffffff";
+                    }
+                    else if (rainbow) {
                         this.style.backgroundColor = createRandomColor();
                     }
                     else {
