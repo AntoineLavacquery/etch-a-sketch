@@ -8,12 +8,17 @@ createGrid(gridSize);
 
 let tempo = document.querySelector(".tempo");
 
+let colorPicker = document.querySelector(".color-picker");
+colorPicker.addEventListener("input", function(event) {
+    color = event.target.value;
+    console.log(color);
+});
+let color = colorPicker.value;
 
 let clearButton = document.querySelector(".clear");
 clearButton.addEventListener("click", function () {
     createGrid(gridSize);
 });
-
 
 let slider = document.querySelector("#size-slider");
 slider.addEventListener("input", function() {
@@ -34,11 +39,11 @@ function createGrid(gridSize) {
             cell.className = "cell";
             cell.addEventListener("mouseenter", function() {
                 if (mouseDown) {
-                    this.style.backgroundColor = "red";
+                    this.style.backgroundColor = color;
                 }
             })
             cell.addEventListener("mousedown", function() {
-                this.style.backgroundColor = "black";
+                this.style.backgroundColor = color;
             })
             line.appendChild(cell);
         }
