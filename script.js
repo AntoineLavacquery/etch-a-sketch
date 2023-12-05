@@ -11,137 +11,17 @@ let rainbow = false;
 let eraser = false;
 let darken = false;
 
+// Retrieving elements
+
 let toggleButtons = document.querySelectorAll(".toggle");
-toggleButtons.forEach(function (button) {
-    button.addEventListener("click", function () {
-        let clickedButton = this;
-        console.log(this);
-        switch (this.innerHTML) {
-            case "Rainbow":
-                if (rainbow) {
-                    rainbow = false;
-                    this.style.backgroundColor = "var(--idle-btn-color)";
-                } else {
-                    rainbow = true;
-                    this.style.backgroundColor = "var(--pushed-btn-color)";
-                    darken = false;
-                    eraser = false;
-                    toggleButtons.forEach(function (otherButton) {
-                        if (otherButton != clickedButton) {
-                            otherButton.style.backgroundColor =
-                                "var(--idle-btn-color)";
-                        }
-                    });
-                }
-                break;
-            case "Eraser":
-                if (eraser) {
-                    eraser = false;
-                    this.style.backgroundColor = "var(--idle-btn-color)";
-                } else {
-                    eraser = true;
-                    this.style.backgroundColor = "var(--pushed-btn-color)";
-                    rainbow = false;
-                    darken = false;
-                    toggleButtons.forEach(function (otherButton) {
-                        if (otherButton != clickedButton) {
-                            otherButton.style.backgroundColor =
-                                "var(--idle-btn-color)";
-                        }
-                    });
-                }
-                break;
-            case "Darken":
-                if (darken) {
-                    darken = false;
-                    this.style.backgroundColor = "var(--idle-btn-color)";
-                } else {
-                    darken = true;
-                    this.style.backgroundColor = "var(--pushed-btn-color)";
-                    rainbow = false;
-                    eraser = false;
-                    toggleButtons.forEach(function (otherButton) {
-                        if (otherButton != clickedButton) {
-                            otherButton.style.backgroundColor =
-                                "var(--idle-btn-color)";
-                        }
-                    });
-                }
-                break;
-            default:
-                alert("Button error");
-                break;
-        }
-        // if (this.getAttribute("data-active") === "true") {
-        //     this.setAttribute("data-active", "false");
-        //     this.style.backgroundColor = "var(--idle-btn-color)";
-        // } else {
-        //     this.setAttribute("data-active", "true");
-        //     this.style.backgroundColor = "var(--pushed-btn-color)";
-        //     toggleButtons.forEach(function (otherButton) {
-        //         if (otherButton != clickedButton) {
-        //             otherButton.setAttribute("data-active", "false");
-        //             otherButton.style.backgroundColor = "var(--idle-btn-color)";
-        //         }
-        //     });
-        // }
-    });
-});
-
-// let rainbow = false;
-// let rainbowButton = document.querySelector(".rainbow");
-// rainbowButton.addEventListener("click", function () {
-//     if (rainbow) {
-//         rainbow = false;
-//     } else {
-//         rainbow = true;
-//     }
-// });
-
-// let eraser = false;
-// let eraserButton = document.querySelector(".eraser");
-// eraserButton.addEventListener("click", function () {
-//     if (eraser) {
-//         eraser = false;
-//     } else {
-//         eraser = true;
-//     }
-// });
-
-// let darken = false;
-// let darkenButton = document.querySelector(".darken");
-// darkenButton.addEventListener("click", function () {
-//     if (darken) {
-//         darken = false;
-//     } else {
-//         darken = true;
-//     }
-// });
-
 let tempo = document.querySelector(".tempo");
 let grid = document.querySelector(".grid");
-let gridSize = 16;
-createGrid(gridSize);
-
 let colorPicker = document.querySelector(".color-picker");
-colorPicker.addEventListener("input", function (event) {
-    color = event.target.value;
-    console.log(color);
-});
-
 let color = colorPicker.value;
-
 let clearButton = document.querySelector(".clear");
-clearButton.addEventListener("click", function () {
-    createGrid(gridSize);
-});
-
 let slider = document.querySelector("#size-slider");
-slider.addEventListener("input", function () {
-    gridSize = this.value;
-    tempo.innerHTML = gridSize;
-    createGrid(gridSize);
-});
+
+// Functions
 
 function changeColor(event) {
     if (mouseDown || event.type === "mousedown") {
@@ -189,3 +69,75 @@ function darkenColor(rgbValue) {
     }
     return `rgb(${rgbArray.join(", ")})`;
 }
+
+function updateButtonState(button, state, color) {
+    button.setAttribute('data-active', state);
+    button.style.backgroundColor = color;
+    toggleButtons.forEach(function (otherButton) {
+        if (otherButton != button) {
+            otherButton.style.backgroundColor = "var(--idle-btn-color)";
+        }
+    });
+}
+
+let gridSize = 16;
+createGrid(gridSize);
+
+toggleButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+        let clickedButton = this;
+        console.log(this);
+        switch (this.id) {
+            case "rainbow":
+                if (rainbow) {
+                    updateButtonState(clickedButton, 'false', "var(--idle-btn-color)");
+                    rainbow = false;
+                } else {
+                    updateButtonState(clickedButton, 'true', "var(--pushed-btn-color)");
+                    rainbow = true;
+                    darken = false;
+                    eraser = false;
+                }
+                break;
+            case "eraser":
+                if (eraser) {
+                    updateButtonState(clickedButton, 'false', "var(--idle-btn-color)");
+                    eraser = false;
+                } else {
+                    updateButtonState(clickedButton, 'true', "var(--pushed-btn-color)");
+                    eraser = true;
+                    rainbow = false;
+                    darken = false;
+                }
+                break;
+            case "darken":
+                if (darken) {
+                    updateButtonState(clickedButton, 'false', "var(--idle-btn-color)");
+                    darken = false;
+                } else {
+                    updateButtonState(clickedButton, 'true', "var(--pushed-btn-color)");
+                    darken = true;
+                    rainbow = false;
+                    eraser = false;
+                }
+                break;
+            default:
+                alert("Button error");
+                break;
+        }
+    });
+});
+
+colorPicker.addEventListener("input", function (event) {
+    color = event.target.value;
+});
+
+clearButton.addEventListener("click", function () {
+    createGrid(gridSize);
+});
+
+slider.addEventListener("input", function () {
+    gridSize = this.value;
+    // tempo.innerHTML = gridSize;
+    createGrid(gridSize);
+});

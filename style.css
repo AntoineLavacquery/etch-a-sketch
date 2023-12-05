@@ -1,11 +1,19 @@
 :root {
     --grid-frame-size: 600px;
-    --idle-btn-color: #eeeeee;
+    --background-color: #eeeeee;
     --pushed-btn-color: #aaaaaa;
+    --font-color: #031927;
+    --shadow-color: rgba(0, 0, 0, 0.2);
 }
 
 body {
-    background-color: antiquewhite;
+    background-color: var(--background-color);
+    font-family: Poppins, Arial, sans-serif;
+    color: var(--font-color);
+}
+
+h1 {
+    font-size: 48px;
 }
 
 .grid {
@@ -14,6 +22,7 @@ body {
     height: var(--grid-frame-size);
     display: flex;
     flex-direction: column;
+    box-shadow: 0px 0px 10px 2px var(--shadow-color);;
 }
 
 .line {
@@ -24,20 +33,18 @@ body {
 .cell {
     background-color: whitesmoke;
     flex: 1;
-    border: 1px solid lightgray;
+    /* border: 0.5px solid lightgray; */
+
 }
 
-.button.clear {
-    background-color: rgb(255, 255, 255);
-}
-
-.button.toggle {
+.button {
+    color: var(--font-color);
     display: inline-block;
-    width: 80px;
-    height: 30px;
-    border: 0;
+    width: 120px;
+    height: 40px;
+    font-size: 24px;
+    border: 2px solid var(--font-color);
     border-radius: 6px;
-    background-color: var(--idle-btn-color);
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -45,4 +52,23 @@ body {
     gap: 0px;
     padding: 0px;
     flex-wrap: nowrap;
+}
+
+.color-picker {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100px;
+    height: 100px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+.color-picker::-webkit-color-swatch {
+    border-radius: 15px;
+    border: none;
+}
+.color-picker::-moz-color-swatch {
+    border-radius: 15px;
+    border: none;
 }
