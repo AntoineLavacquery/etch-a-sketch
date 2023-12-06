@@ -9,14 +9,19 @@ body {
     background-color: var(--background-color);
     font-family: Poppins, Arial, sans-serif;
     color: var(--font-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
 }
 
 h1 {
     font-size: 48px;
+    margin-bottom: 0;
+
 }
 
 .grid {
-    margin: auto;
     width: var(--grid-frame-size);
     height: var(--grid-frame-size);
     display: flex;
@@ -34,6 +39,32 @@ h1 {
     flex: 1;
     /* border: 0.5px solid lightgray; */
 
+}
+
+.control-panel {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+
+.size-info,
+.footer {
+    font-size: 20px;
 }
 
 .button {
@@ -57,8 +88,8 @@ h1 {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    width: 100px;
-    height: 100px;
+    width: 136px;
+    height: 136px;
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -70,4 +101,8 @@ h1 {
 .color-picker::-moz-color-swatch {
     border-radius: 15px;
     border: none;
+}
+
+a {
+    color: var(--font-color);
 }

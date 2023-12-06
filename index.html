@@ -4,14 +4,21 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Etch a sketch</title>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Poppins"
+        />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
         <h1>Etch-a-sketch</h1>
+
         <div class="grid"></div>
+
         <div class="control-panel">
-            <div class="slidecontainer">
+            <div class="left">
+                <div class="size-info">99 x 99</div>
                 <input
                     type="range"
                     min="1"
@@ -20,20 +27,29 @@
                     class="slider"
                     id="size-slider"
                 />
+                <button class="button clear">Clear</button>
             </div>
 
-            <button class="button clear">Clear</button>
-            <input type="color" value="#000000" class="color-picker" />
+            <div class="center">
+                <input type="color" value="#000000" class="color-picker" />
+            </div>
 
-            <button class="button toggle" id="rainbow" data-active="false">
-                Rainbow
-            </button>
-            <button class="button toggle" id="eraser" data-active="false">
-                Eraser
-            </button>
-            <button class="button toggle" id="darken" data-active="false">
-                Darken
-            </button>
+            <div class="right">
+                <button class="button toggle" id="rainbow" data-active="false">
+                    Rainbow
+                </button>
+                <button class="button toggle" id="eraser" data-active="false">
+                    Eraser
+                </button>
+                <button class="button toggle" id="darken" data-active="false">
+                    Darken
+                </button>
+            </div>
+        </div>
+
+        <div class="footer">
+            <a href="https://github.com/AntoineLavacquery/"><i class="fa fa-github"></i></a>
+            AntoineLavacquery
         </div>
 
         <!-- No pasaran !! ------------------------------- -->
