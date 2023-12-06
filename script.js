@@ -63,6 +63,7 @@ function createRandomColor() {
 }
 
 function darkenColor(rgbValue) {
+    console.log(rgbValue);
     let rgbArray = rgbValue.match(/\d+/g).map(Number);
     for (let i = 0; i < rgbArray.length; i++) {
         rgbArray[i] = Math.floor(rgbArray[i] * 0.9);
@@ -70,12 +71,15 @@ function darkenColor(rgbValue) {
     return `rgb(${rgbArray.join(", ")})`;
 }
 
-function updateButtonState(button, state, color) {
-    button.setAttribute('data-active', state);
-    button.style.backgroundColor = color;
+function updateButtonState({button, backgroundColor, fontColor}) {
+    console.log(button.style.color);
+    button.style.backgroundColor = backgroundColor;
+    button.style.color = fontColor;
     toggleButtons.forEach(function (otherButton) {
         if (otherButton != button) {
-            otherButton.style.backgroundColor = "var(--idle-btn-color)";
+            otherButton.style.backgroundColor = "var(--background-color)";
+            otherButton.style.color = "var(--font-color)";
+            console.log(button.style.color);
         }
     });
 }
@@ -86,14 +90,23 @@ createGrid(gridSize);
 toggleButtons.forEach(function (button) {
     button.addEventListener("click", function () {
         let clickedButton = this;
-        console.log(this);
+        let activateArgs = {
+            button: clickedButton,
+            backgroundColor: "var(--font-color)",
+            fontColor: "var(--background-color)"
+        };
+        let desactivateArgs = {
+            button: clickedButton,
+            backgroundColor: "var(--background-color)",
+            fontColor: "var(--font-color)"
+        };
         switch (this.id) {
             case "rainbow":
                 if (rainbow) {
-                    updateButtonState(clickedButton, 'false', "var(--idle-btn-color)");
+                    updateButtonState(desactivateArgs);
                     rainbow = false;
                 } else {
-                    updateButtonState(clickedButton, 'true', "var(--pushed-btn-color)");
+                    updateButtonState(activateArgs);
                     rainbow = true;
                     darken = false;
                     eraser = false;
@@ -101,10 +114,10 @@ toggleButtons.forEach(function (button) {
                 break;
             case "eraser":
                 if (eraser) {
-                    updateButtonState(clickedButton, 'false', "var(--idle-btn-color)");
+                    updateButtonState(desactivateArgs);
                     eraser = false;
                 } else {
-                    updateButtonState(clickedButton, 'true', "var(--pushed-btn-color)");
+                    updateButtonState(activateArgs);
                     eraser = true;
                     rainbow = false;
                     darken = false;
@@ -112,10 +125,10 @@ toggleButtons.forEach(function (button) {
                 break;
             case "darken":
                 if (darken) {
-                    updateButtonState(clickedButton, 'false', "var(--idle-btn-color)");
+                    updateButtonState(desactivateArgs);
                     darken = false;
                 } else {
-                    updateButtonState(clickedButton, 'true', "var(--pushed-btn-color)");
+                    updateButtonState(activateArgs);
                     darken = true;
                     rainbow = false;
                     eraser = false;

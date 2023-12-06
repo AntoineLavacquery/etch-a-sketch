@@ -1,7 +1,6 @@
 :root {
     --grid-frame-size: 600px;
     --background-color: #eeeeee;
-    --pushed-btn-color: #aaaaaa;
     --font-color: #031927;
     --shadow-color: rgba(0, 0, 0, 0.2);
 }
@@ -31,7 +30,7 @@ h1 {
 }
 
 .cell {
-    background-color: whitesmoke;
+    background-color: var(rgb(255, 255, 255));
     flex: 1;
     /* border: 0.5px solid lightgray; */
 
