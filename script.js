@@ -20,6 +20,8 @@ let colorPicker = document.querySelector(".color-picker");
 let color = colorPicker.value;
 let clearButton = document.querySelector(".clear");
 let slider = document.querySelector("#size-slider");
+let sizeInfo = document.querySelector(".size-info");
+sizeInfo.innerText = `16 * 16`;
 
 // Functions
 
@@ -151,6 +153,6 @@ clearButton.addEventListener("click", function () {
 
 slider.addEventListener("input", function () {
     gridSize = this.value;
-    // tempo.innerHTML = gridSize;
+    sizeInfo.innerText = `${gridSize} * ${gridSize}`;
     createGrid(gridSize);
 });
